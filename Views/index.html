@@ -88,11 +88,11 @@
         <script>
             $("#url-shortener-form").submit(e => {
                 const urlTxt = $("input").val();
-                $.post("http://localhost:3000/api/shortr", {
+                $.post("https://url-shortr-nl.herokuapp.com//api/shortr", {
                     url: urlTxt
                 }, (result) => {
-                    $("#url-result").html("http://localhost:3000/" + result.new_url);
-                    $("#url-result").prop("href", "http://localhost:3000/" + result.new_url);
+                    $("#url-result").html("https://url-shortr-nl.herokuapp.com/" + result.new_url);
+                    $("#url-result").prop("href", "https://url-shortr-nl.herokuapp.com/" + result.new_url);
                 });
                 return false;
             });
