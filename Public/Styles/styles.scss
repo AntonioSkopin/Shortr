@@ -25,7 +25,7 @@ $green-color: #00EFC4;
             sans-serif;
     }
 
-    .get-started-cta {
+    button {
         background: linear-gradient(200deg, #0085ff .33%, #9340fa 85.46%);
     }
 
@@ -71,15 +71,4 @@ $green-color: #00EFC4;
     background-color: $mint-color;
     bottom: -25%;
     right: -5%;
-}
-
-.shorten-link-container {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-
-    // background-color: $blue-color;
-    button {
-        background: linear-gradient(200deg, #0085ff .33%, #9340fa 85.46%);
-        transition: 3s;
-    }
 }
