@@ -33,18 +33,18 @@ exports.redirectUser = (req, res) => {
     try {
         // If app starts req.params.url = to favicon.ico
         // So we have to avoid that error
-        // if (req.params.url !== "favicon.ico") {
-        //     Url.findOne({
-        //         short_url: req.params.url
-        //     }, (err, data) => {
-        //         if (err) {
-        //             return res.status(400).json({
-        //                 error: err
-        //             });
-        //         }
-        //         return res.redirect(data.original_url);
-        //     });
-        // }
+        if (req.params.url !== "favicon.ico") {
+            Url.findOne({
+                short_url: req.params.url
+            }, (err, data) => {
+                if (err) {
+                    return res.status(400).json({
+                        error: err
+                    });
+                }
+                return res.redirect(data.original_url);
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server error!");
