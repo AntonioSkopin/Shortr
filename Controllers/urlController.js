@@ -18,9 +18,10 @@ exports.shortenUrl = async (req, res) => {
             original_url: req.body.url,
             short_url: generateID()
         });
-        await url.save();
-        return res.json({
-            new_url: url.short_url
+        await url.save((err, data) => {
+            res.json({
+                new_url: url.short_url
+            });
         });
     } catch (error) {
         console.error(error);
