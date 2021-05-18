@@ -3,7 +3,7 @@ const validUrl = require("valid-url");
 require("../Services/urlService");
 
 // Shorten URL:
-exports.shortenUrl = (req, res) => {
+exports.shortenUrl = async (req, res) => {
     try {
         // Check if provided website is valid
         if (!req.body.url.includes("https")) {
@@ -18,7 +18,7 @@ exports.shortenUrl = (req, res) => {
             original_url: req.body.url,
             short_url: generateID()
         });
-        url.save();
+        await url.save();
         return res.json({
             new_url: url.short_url
         });
@@ -31,17 +31,17 @@ exports.shortenUrl = (req, res) => {
 // Redirect to original URL:
 exports.redirectUser = async (req, res) => {
     try {
-        // If app starts req.params.url = to favicon.ico
-        // So we have to avoid that error
         if (req.params.url !== "favicon.ico") {
             await Url.findOne({
                 short_url: req.params.url
-            }).then(res => {
-                return res.redirect(res.original_url);
-            }).catch(err => {
-                return res.status(400).json({
-                    err: err
-                });
+            }, (err, data) => {
+                console.log(err);
+                if (err) {
+                    res.status(400).json({
+                        error: err
+                    });
+                }
+                res.redirect(data.original_url);
             });
         }
     } catch (error) {
