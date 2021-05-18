@@ -1,0 +1,31 @@
+{
+  "name": "shortr",
+  "version": "1.0.0",
+  "description": "URL Shortener website",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonioSkopin/Shortr.git"
+  },
+  "author": "Antonio Skopin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonioSkopin/Shortr/issues"
+  },
+  "homepage": "https://github.com/AntonioSkopin/Shortr#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dns": "^0.2.2",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-simple-redirect": "^1.0.1",
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.9",
+    "nodemon": "^2.0.7",
+    "valid-url": "^1.0.9"
+  }
+}

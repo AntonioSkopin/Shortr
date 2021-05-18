@@ -20,7 +20,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.landing-page .get-started-cta {
+.landing-page button {
   background: linear-gradient(200deg, #0085ff 0.33%, #9340fa 85.46%);
 }
 
@@ -65,16 +65,5 @@
   background-color: #D8FFFA;
   bottom: -25%;
   right: -5%;
-}
-
-.shorten-link-container {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.shorten-link-container button {
-  background: linear-gradient(200deg, #0085ff 0.33%, #9340fa 85.46%);
-  -webkit-transition: 3s;
-  transition: 3s;
 }
 /*# sourceMappingURL=styles.css.map */

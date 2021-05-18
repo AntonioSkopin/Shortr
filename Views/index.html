@@ -7,13 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shortr.</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./Styles/styles.css">
-    <script src="./Src/navbar.js"></script>
+    <link rel="stylesheet" href="../Public/Styles/styles.css">
+    <script src="../Public/Src/navbar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="overflow-x-hidden">
     <!-- Navbar -->
-    <div id="navbar" class="w-screen bg-white transition duration-200 ease-in-out flex flex-wrap flex-col justify-center md:flex-row items-center px-20 py-6">
+    <div id="navbar"
+        class="w-screen bg-white transition duration-200 ease-in-out flex flex-wrap flex-col justify-center md:flex-row items-center px-20 py-6">
         <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <span class="ml-3 text-xl">Shortr.</span>
         </a>
@@ -24,7 +28,8 @@
             <a class="mx-6 font-semibold text-gray-600 hover:text-gray-800" href="#">Help</a>
         </nav>
         <button
-            class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Contact us
+            class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Contact
+            us
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 class="w-4 h-4 ml-1" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -41,8 +46,26 @@
             <br>
             Get more website visitors, traffic & leads.
         </p>
-        <button class="get-started-cta flex items-center text-white px-12 py-4 rounded-lg w-max focus:outline-none"
-            style="box-shadow: 0 15px 30px -15px rgb(90 92 248 / 60%);">Get started</button>
+        <form id="url-shortener-form" autocomplete="off">
+            <input type="text" id="rounded-email"
+                class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-72 py-4 px-6 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                placeholder="Your link" />
+            <button class="ml-6 text-white px-10 py-4 rounded-lg w-max focus:outline-none"
+                style="box-shadow: 0 15px 30px -15px rgb(90 92 248 / 60%);">Shorten</button>
+        </form>
+        <a href="#" target="_blank" class="mt-10" id="url-result"></a>
+        <script>
+            $("#url-shortener-form").submit(e => {
+                const urlTxt = $("input").val();
+                $.post("http://localhost:3000/api/shortr", {
+                    url: urlTxt
+                }, (result) => {
+                    $("#url-result").html("http://localhost:3000/" + result.new_url);
+                    $("#url-result").prop("href", "http://localhost:3000/" + result.new_url);
+                });
+                return false;
+            });
+        </script>
         <ul class="flex justify-between items-center py-10 text-gray-400">
             <li class="flex items-center">
                 <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
@@ -73,14 +96,6 @@
     <div class="small-circle circle-3 absolute rounded-full"></div>
     <div class="big-blob absolute rounded-full"></div>
     <!-- Landing Page -->
-
-    <div class="shorten-link-container w-screen h-40 relative my-12 px-48 flex items-center">
-        <input type="text" id="rounded-email"
-            class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-72 py-4 px-6 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-            placeholder="Your link" />
-        <button class="ml-6 text-white px-10 py-4 rounded-lg w-max focus:outline-none"
-            style="box-shadow: 0 15px 30px -15px rgb(90 92 248 / 60%);">Shorten</button>
-    </div>
 </body>
 
 </html>
