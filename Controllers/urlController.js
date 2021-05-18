@@ -37,6 +37,7 @@ exports.redirectUser = (req, res) => {
             Url.findOne({
                 short_url: req.params.url
             }, (err, data) => {
+                console.log(err);
                 if (err) {
                     return res.status(400).json({
                         error: err
