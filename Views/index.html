@@ -12,48 +12,79 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
         integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
 </head>
 
 <body class="overflow-x-hidden">
     <!-- Navbar -->
-    <div id="navbar"
-        class="w-screen bg-white transition duration-200 ease-in-out flex flex-wrap flex-col justify-center md:flex-row items-center px-20 py-6">
-        <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-            <span class="ml-3 text-xl">Shortr.</span>
-        </a>
-        <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-            <a class="mx-6 font-semibold text-gray-600 hover:text-gray-800" href="#">How it works</a>
-            <a class="mx-6 font-semibold text-gray-600 hover:text-gray-800" href="#">Pricing</a>
-            <a class="mx-6 font-semibold text-gray-600 hover:text-gray-800" href="#">Affiliates</a>
-            <a class="mx-6 font-semibold text-gray-600 hover:text-gray-800" href="#">Help</a>
-        </nav>
-        <button
-            class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Contact
-            us
-            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
+    <nav id="navbar"
+        class="w-screen transition shadow-md lg:shadow-none duration-200 ease-in-out flex items-center justify-between flex-wrap items-center px-20 py-6 sticky top-0 z-90"
+        style="z-index: 999; padding-right: 5vw; padding-left: 5vw; background-color: white;" x-data="{ isOpen: false }"
+        @keydown.escape="isOpen = false" :class="{ 'shadow-lg bg-white' : isOpen , 'bg-none' : !isOpen}">
+        <!--Logo etc-->
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+            <a class="flex title-font font-medium items-center text-gray-900 md:mb-0">
+                <span class="text-xl">Shortr.</span>
+            </a>
+        </div>
+
+        <!--Toggle button (hidden on large screens)-->
+        <button @click="isOpen = !isOpen" type="button" class="block lg:hidden px-2 text-gray-500 focus:outline-none"
+            :class="{ 'transition transform-180': isOpen }">
+            <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
+                <path x-show="!isOpen" fill-rule="evenodd"
+                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
             </svg>
         </button>
-    </div>
+
+        <!--Menu-->
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
+            :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false"
+            x-show.transition="true" style="z-index: 999;">
+            <ul class="pt-6 lg:pt-0 list-reset lg:flex justify-end flex-1 items-center">
+                <li class="mr-3">
+                    <a class="inline-block text-gray-800 font-semibold no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                        href="#" @click="isOpen = false">How it works
+                    </a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-800 font-semibold no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                        href="#over-ons" @click="isOpen = false">Pricing
+                    </a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-800 font-semibold no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                        href="#sporten" @click="isOpen = false">Affiliates
+                    </a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-800 font-semibold no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                        href="#tarieven" @click="isOpen = false">Help
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <!-- Navbar -->
 
     <!-- Landing Page -->
-    <div class="landing-page px-20 flex flex-col justify-center items-center">
-        <h1 class="text-5xl text-center font-bold text-gray-800">Reduce the length of <br> your link within seconds.
+    <div class="landing-page px-6 lg:px-20 flex flex-col justify-center items-center">
+        <h1 class="text-3xl lg:text-5xl text-center font-bold text-gray-800 relative z-0">Reduce the length of <br> your
+            link within seconds.
         </h1>
-        <p class="text-center py-10 text-lg text-gray-700">Attract more people to grow your website audience.
-            <br>
+        <p class="text-center py-10 text-md lg:text-lg text-gray-600">Attract more people to grow your website audience.
             Get more website visitors, traffic & leads.
         </p>
         <form id="url-shortener-form" autocomplete="off">
             <input type="text" id="rounded-email"
-                class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-72 py-4 px-6 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full lg:w-max py-4 px-6 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                 placeholder="Your link" />
-            <button class="ml-6 text-white px-10 py-4 rounded-lg w-max focus:outline-none"
+            <button class="lg:ml-6 mt-5 lg:mt-0 text-white px-10 py-4 rounded-lg w-full lg:w-max focus:outline-none"
                 style="box-shadow: 0 15px 30px -15px rgb(90 92 248 / 60%);">Shorten</button>
         </form>
-        <a href="#" target="_blank" class="mt-10" id="url-result"></a>
+        <a href="#" target="_blank" class="mt-10 text-blue-500 hover:underline" id="url-result"></a>
         <script>
             $("#url-shortener-form").submit(e => {
                 const urlTxt = $("input").val();
@@ -66,22 +97,24 @@
                 return false;
             });
         </script>
-        <ul class="flex justify-between items-center py-10 text-gray-400">
-            <li class="flex items-center">
-                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                    stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>&nbsp;
-                Completely free
-            </li>
-            <li class="flex items-center">
-                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
-                    stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>&nbsp;
-                Easy to use
-            </li>
-            <li class="flex items-center">
+        <ul class="text-center flex items-center flex-col lg:flex-row text-gray-400 text-md mt-8">
+            <div class="flex">
+                <li class="flex items-center mx-5">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>&nbsp;
+                    Completely free
+                </li>
+                <li class="flex items-center mx-5">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>&nbsp;
+                    Easy to use
+                </li>
+            </div>
+            <li class="flex items-center mx-5 mt-2 lg:mt-0">
                 <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
                     stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                     <polyline points="20 6 9 17 4 12"></polyline>
@@ -90,11 +123,11 @@
             </li>
         </ul>
     </div>
-    <div class="blob absolute rounded-full"></div>
-    <div class="small-circle circle-1 absolute rounded-full"></div>
-    <div class="small-circle circle-2 absolute rounded-full"></div>
-    <div class="small-circle circle-3 absolute rounded-full"></div>
-    <div class="big-blob absolute rounded-full"></div>
+    <div class="blob absolute rounded-full z-0 hidden lg:block"></div>
+    <div class="small-circle circle-1 absolute rounded-full hidden lg:block"></div>
+    <div class="small-circle circle-2 absolute rounded-full hidden lg:block"></div>
+    <div class="small-circle circle-3 absolute rounded-full hidden lg:block"></div>
+    <div class="big-blob absolute rounded-full hidden lg:block"></div>
     <!-- Landing Page -->
 </body>
 
