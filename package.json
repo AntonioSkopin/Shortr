@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AntonioSkopin/Shortr#readme",
   "dependencies": {
+    "config": "3.3.1",
     "cors": "^2.8.5",
     "dns": "^0.2.2",
     "dotenv": "^9.0.2",
