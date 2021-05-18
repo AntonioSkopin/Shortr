@@ -36,14 +36,12 @@ exports.redirectUser = async (req, res) => {
         if (req.params.url !== "favicon.ico") {
             await Url.findOne({
                 short_url: req.params.url
-            }, (err, data) => {
-                console.log(err);
-                if (err) {
-                    return res.status(400).json({
-                        error: err
-                    });
-                }
-                return res.redirect(data.original_url);
+            }).then(res => {
+                return res.redirect(res.original_url);
+            }).catch(err => {
+                return res.status(400).json({
+                    err: err
+                });
             });
         }
     } catch (error) {
