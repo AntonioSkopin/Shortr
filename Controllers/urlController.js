@@ -29,12 +29,12 @@ exports.shortenUrl = (req, res) => {
 };
 
 // Redirect to original URL:
-exports.redirectUser = (req, res) => {
+exports.redirectUser = async (req, res) => {
     try {
         // If app starts req.params.url = to favicon.ico
         // So we have to avoid that error
         if (req.params.url !== "favicon.ico") {
-            Url.findOne({
+            await Url.findOne({
                 short_url: req.params.url
             }, (err, data) => {
                 console.log(err);
