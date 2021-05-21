@@ -44,9 +44,11 @@ exports.shortenURL = async (req, res) => {
 
 exports.redirectUser = async (req, res) => {
     try {
-        await Url.findOne({ short_url: req.params.urlID }).then(url => {
-            res.status(301).redirect(url.original_url);
-        });
+        if (req.params.url !== "favicon.ico") {
+            await Url.findOne({ short_url: req.params.urlID }).then(url => {
+                res.status(301).redirect(url.original_url);
+            });
+        }
     } catch (error) {
         res.status(500).json({
             message: error.message
