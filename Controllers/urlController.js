@@ -1,5 +1,4 @@
 const Url = require("../Models/Url");
-const validUrl = require("valid-url");
 require("../Services/urlService");
 
 // GET all URL's
@@ -18,13 +17,13 @@ exports.getURLs = async (req, res) => {
 
 exports.shortenURL = async (req, res) => {
     try {
-        // Check if provided website is valid
         if (!req.body.url.includes("https")) {
             req.body.url = "https://" + req.body.url;
         }
-        if (!validUrl.isUri(req.body.url)) {
-            return res.status(404).json({
-                error: "URL is not valid."
+        // CHECK IF URL IS VALID:
+        if (!checkUrl(req.body.url)) {
+            return res.status(400).json({
+                message: "Please provide a valid URL."
             });
         }
         const url = new Url({
@@ -44,8 +43,11 @@ exports.shortenURL = async (req, res) => {
 
 exports.redirectUser = async (req, res) => {
     try {
+        // Param always is favicon.ico when no param is provided
         if (req.params.url !== "favicon.ico") {
-            await Url.findOne({ short_url: req.params.urlID }).then(url => {
+            await Url.findOne({
+                short_url: req.params.urlID
+            }).then(url => {
                 res.status(301).redirect(url.original_url);
             });
         }
