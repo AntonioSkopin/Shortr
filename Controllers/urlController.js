@@ -3,7 +3,7 @@ const validUrl = require("valid-url");
 require("../Services/urlService");
 
 // Shorten URL:
-exports.shortenUrl = async (req, res) => {
+exports.shortenUrl = (req, res) => {
     try {
         // Check if provided website is valid
         if (!req.body.url.includes("https")) {
@@ -18,10 +18,9 @@ exports.shortenUrl = async (req, res) => {
             original_url: req.body.url,
             short_url: generateID()
         });
-        await url.save((err, data) => {
-            res.json({
-                new_url: url.short_url
-            });
+        url.save();
+        res.json({
+            new_url: url.short_url
         });
     } catch (error) {
         console.error(error);
