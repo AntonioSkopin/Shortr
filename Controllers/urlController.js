@@ -2,8 +2,21 @@ const Url = require("../Models/Url");
 const validUrl = require("valid-url");
 require("../Services/urlService");
 
-// Shorten URL:
-exports.shortenUrl = (req, res) => {
+// GET all URL's
+exports.getURLs = async (req, res) => {
+    try {
+        const urls = await Url.find();
+        return res.status(200).json({
+            data: urls
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+exports.shortenURL = async (req, res) => {
     try {
         // Check if provided website is valid
         if (!req.body.url.includes("https")) {
@@ -18,34 +31,25 @@ exports.shortenUrl = (req, res) => {
             original_url: req.body.url,
             short_url: generateID()
         });
-        url.save();
-        res.json({
+        await url.save();
+        res.status(200).json({
             new_url: url.short_url
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server error!");
+        res.status(500).json({
+            message: error.message
+        });
     }
 };
 
-// Redirect to original URL:
 exports.redirectUser = async (req, res) => {
     try {
-        if (req.params.url !== "favicon.ico") {
-            await Url.findOne({
-                short_url: req.params.url
-            }, (err, data) => {
-                console.log(err);
-                if (err) {
-                    res.status(400).json({
-                        error: err
-                    });
-                }
-                res.redirect(data.original_url);
-            });
-        }
+        await Url.findOne({ short_url: req.params.urlID }).then(url => {
+            res.status(301).redirect(url.original_url);
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server error!");
+        res.status(500).json({
+            message: error.message
+        });
     }
 };

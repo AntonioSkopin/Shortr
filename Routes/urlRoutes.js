@@ -1,10 +1,8 @@
 const router = require("express").Router();
 const urlController = require("../Controllers/urlController");
 
-// Shorten URL:
-router.route("/api/shortr").post(urlController.shortenUrl);
-
-// Redirect to original URL
-router.route("/:url").get(urlController.redirectUser);
+router.route("/api/urls").get(urlController.getURLs);
+router.route("/api/url").post(urlController.shortenURL);
+router.route("/api/redirect/:urlID").get(urlController.redirectUser);
 
 module.exports = router;
